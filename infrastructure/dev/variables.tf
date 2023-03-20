@@ -27,3 +27,9 @@ variable "tags" {
   default     = {}
   description = "Tags"
 }
+
+# Network
+variable "vnet_address_space" {
+  type        = list(string)
+  description = "The address space that is used by the virtual network."
+}

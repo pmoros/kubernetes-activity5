@@ -9,3 +9,6 @@ tags = {
   lob         = "acad"
   location    = "eastus"
 }
+
+# Network
+vnet_address_space = ["172.16.1.0/24"]
