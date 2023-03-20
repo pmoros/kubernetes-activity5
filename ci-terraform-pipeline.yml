@@ -9,6 +9,8 @@ trigger:
       - "infrastructure"
       - "infrastructure/*"
       - "infrastructure/*/*"
+      - "ci-terraform-pipeline.yml"
+      - "cd-terraform-pipeline.yml"
     exclude:
       - "README.md"
 
