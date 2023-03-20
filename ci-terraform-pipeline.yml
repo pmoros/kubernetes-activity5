@@ -1,8 +1,8 @@
 trigger:
   branches:
     include:
-      - "*"
-    exclude:
+      - "infrastructure"
+      - "infrastructure/*"
       - "main"
   paths:
     exclude:
