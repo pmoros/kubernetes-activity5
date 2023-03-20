@@ -15,12 +15,12 @@ spec:
         app: vote-app
     spec:
       containers:
-      - name: vote-app
-        image: <<Your ACR Name>>.azurecr.io/vote-app:1.0
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 80
-          name: vote-app-port
+        - name: vote-app
+          image: acrpmorosactivity5dev001.azurecr.io/voting-app:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: vote-app-port
 ---
 apiVersion: v1
 kind: Service
@@ -31,9 +31,9 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - name: vote-service-port
-    port: 5000
-    targetPort: 80
+    - name: vote-service-port
+      port: 5000
+      targetPort: 80
   selector:
     app: vote-app
 ---
@@ -54,17 +54,17 @@ spec:
         app: redis-db
     spec:
       containers:
-      - image: redis:alpine
-        name: redis-db
-        ports:
-        - containerPort: 6379
+        - image: redis:alpine
           name: redis-db
-        volumeMounts:
-        - mountPath: /data
-          name: redis-data
+          ports:
+            - containerPort: 6379
+              name: redis-db
+          volumeMounts:
+            - mountPath: /data
+              name: redis-data
       volumes:
-      - name: redis-data
-        emptyDir: {} 
+        - name: redis-data
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
@@ -75,7 +75,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - name: redis-db
-    port: 6379
+    - name: redis-db
+      port: 6379
   selector:
     app: redis-db
