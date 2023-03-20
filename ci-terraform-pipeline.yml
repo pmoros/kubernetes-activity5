@@ -1,0 +1,35 @@
+trigger:
+  branches:
+    include:
+      - "*"
+    exclude:
+      - "main"
+  paths:
+    exclude:
+      - "README.md"
+
+pool:
+  vmImage: "ubuntu-latest"
+
+stages:
+  - stage: TerraformFormat
+    displayName: "Terraform format"
+    jobs:
+      - template: pipelines-templates/jobs/terraform-format.yml
+        parameters:
+          environment: "dev"
+          azureServiceConnection: "ARM_SUBSCRIPTION"
+  - stage: TerraformValidate
+    displayName: "Terraform validate"
+    jobs:
+      - template: pipelines-templates/jobs/terraform-validate.yml
+        parameters:
+          environment: "dev"
+          azureServiceConnection: "ARM_SUBSCRIPTION"
+  - stage: TerraformPlan
+    displayName: "Terraform plan"
+    jobs:
+      - template: pipelines-templates/jobs/terraform-plan.yml
+        parameters:
+          environment: "dev"
+          azureServiceConnection: "ARM_SUBSCRIPTION"
