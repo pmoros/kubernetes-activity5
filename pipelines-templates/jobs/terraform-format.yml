@@ -8,8 +8,8 @@ parameters:
   terraformApply: false
   terraformDestroy: false
 jobs:
-  - job: terraform_validate
-    displayName: "Terraform validate"
+  - job: terraform_format
+    displayName: "Terraform format"
     pool:
       vmImage: "ubuntu-latest"
     variables:
@@ -21,6 +21,7 @@ jobs:
         parameters:
           environment: ${{ parameters.environment }}
           azureServiceConnection: ${{ parameters.azureServiceConnection }}
+          terraformFormat: ${{ parameters.terraformFormat }}
           terraformValidate: ${{ parameters.terraformValidate }}
           terraformPlan: ${{ parameters.terraformPlan }}
           terraformApply: ${{ parameters.terraformApply }}
