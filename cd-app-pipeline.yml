@@ -1,0 +1,29 @@
+trigger:
+  - "app"
+  - "app/*"
+  - "main"
+
+resources:
+  - repo: self
+
+stages:
+  - stage: Build
+    displayName: Build Docker Image
+    jobs:
+      - job: Build
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: Docker@2
+            inputs:
+              containerRegistry: "acrpmorosactivity5dev001"
+              repository: "voting-app"
+              command: "build"
+              Dockerfile: "**/app/Dockerfile"
+              tags: "latest"
+          - task: Docker@2
+            inputs:
+              containerRegistry: "acrpmorosactivity5dev001"
+              repository: "voting-app"
+              command: "push"
+              tags: "latest"
