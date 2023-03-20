@@ -3,7 +3,7 @@ parameters:
   azureServiceConnection: "ARM_SUBSCRIPTION"
 
   terraformValidate: false
-  terraformPlan: false
+  terraformPlan: true
   terraformPublishPlan: true
   terraformApply: true
   terraformDestroy: false
