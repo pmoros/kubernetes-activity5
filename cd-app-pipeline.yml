@@ -31,26 +31,15 @@ stages:
       - deployment: DeployToAKS
         environment: "dev"
         strategy:
-          canary:
-            trafficRouting:
-              type: "weighted"
-              weight: 20
-            preApproval:
-              conditions:
-                - environment: "dev"
-                  result: "succeeded()"
-        pool:
-          vmImage: "ubuntu-latest"
-        variables:
-          - group: ACR_credentials
-          - group: AKS_credentials
-        steps:
-          - checkout: self
-          - task: Kubernetes@1
-            displayName: Deploy to AKS
-            inputs:
-              connectionType: "Kubernetes Service Connection"
-              kubernetesServiceEndpoint: "kubepmorosactivity5dev001"
-              namespace: "default"
-              command: "create"
-              arguments: "-f $(System.DefaultWorkingDirectory)/app/k8s-deploy-aks.yaml"
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - task: Kubernetes@1
+                  displayName: Deploy to AKS
+                  inputs:
+                    connectionType: "Kubernetes Service Connection"
+                    kubernetesServiceEndpoint: "kubepmorosactivity5dev001"
+                    namespace: "default"
+                    command: "create"
+                    arguments: "-f $(System.DefaultWorkingDirectory)/app/k8s-deploy-aks.yaml"
