@@ -3,8 +3,6 @@ trigger:
   - "app/*"
   - "main"
 
-parameters:
-  environment: "dev"
 stages:
   - stage: Build
     displayName: Build Docker Image
@@ -31,7 +29,7 @@ stages:
     dependsOn: Build
     jobs:
       - deployment: DeployToAKS
-        environment: ${{ parameters.environment }}
+        environment: "dev"
         strategy:
           canary:
             trafficRouting:
@@ -39,7 +37,7 @@ stages:
               weight: 20
             preApproval:
               conditions:
-                - environment: ${{ parameters.environment }}
+                - environment: "dev"
                   result: "succeeded()"
         pool:
           vmImage: "ubuntu-latest"
