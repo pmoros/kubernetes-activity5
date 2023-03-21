@@ -41,7 +41,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     azure_rbac_enabled     = true
   }
 
-  local_account_disabled = true
+  local_account_disabled = false
 
   tags = var.tags
 }
