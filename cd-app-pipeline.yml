@@ -41,5 +41,5 @@ stages:
                     connectionType: "Kubernetes Service Connection"
                     kubernetesServiceEndpoint: "kubepmorosactivity5dev001"
                     namespace: "default"
-                    command: "create"
+                    command: "apply"
                     arguments: "-f $(System.DefaultWorkingDirectory)/app/k8s-deploy-aks.yaml"
