@@ -1,6 +1,3 @@
-parameters:
-  environment: "dev"
-
 trigger:
   - "app"
   - "app/*"
@@ -9,6 +6,8 @@ trigger:
 resources:
   - repo: self
 
+parameters:
+  environment: "dev"
 stages:
   - stage: Build
     displayName: Build Docker Image
